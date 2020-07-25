@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
@@ -19,12 +21,13 @@ public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client") //this is optional in case of getting all user's orders
 	private List<Order> orders = new ArrayList<>();
 	
@@ -32,8 +35,8 @@ public class User implements Serializable{
 		
 	}
 	
-	public User(Long Id, String name, String email, String phone, String password) {
-		this.Id = Id;
+	public User(Long id, String name, String email, String phone, String password) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
@@ -41,11 +44,11 @@ public class User implements Serializable{
 	}
 	
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	
-	public void setId(Long Id) {
-		this.Id = Id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -88,7 +91,7 @@ public class User implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (Id ^ (Id >>> 32));
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -101,7 +104,7 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (Id != other.Id)
+		if (id != other.id)
 			return false;
 		return true;
 	}
