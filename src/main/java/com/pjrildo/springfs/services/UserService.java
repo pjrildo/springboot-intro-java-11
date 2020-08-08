@@ -23,4 +23,12 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.get(); //optional "get" method returns an parameterized type object 
 	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
